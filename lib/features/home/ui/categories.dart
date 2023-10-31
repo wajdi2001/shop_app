@@ -36,21 +36,7 @@ class _CategoryState extends State<Category> {
       crossAxisAlignment: CrossAxisAlignment.end,
 
       children: [
-    Column(
-          children: [
-            TextButton(
-              onPressed: (){},
-             
-              child: CircleAvatar(
-                backgroundColor:Colors.blueGrey,
-                radius: 30,
-                child: FaIcon(FontAwesomeIcons.venus,color: Colors.black54,size: 30),
-              ),
-            ),
-            SizedBox(height: 3,),
-            Text('Women',style: TextStyle(color: Colors.grey,fontSize: 15),)
-          ],
-        ),
+    
          Column(
            children: [
              CircleAvatar(

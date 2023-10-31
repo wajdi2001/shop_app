@@ -12,6 +12,7 @@ class ProductWidget extends StatelessWidget {
   final HomeBloc homeBloc;
   VoidCallback onTap;
   bool added = false;
+  bool isLiked =false;
   Color favorite = Colors.grey;
   Color cart = Colors.grey;
   //added to cart or not
@@ -55,7 +56,9 @@ class ProductWidget extends StatelessWidget {
                         
                        Padding(
                          padding: const EdgeInsets.only( left: 100.0),
-                         child: CustomLikeButton(onPressed: () {
+                         child: CustomLikeButton(
+                          isLiked: isLiked,
+                          onPressed: () {
                                 if (added == false) {
                                   
                                   homeBloc.add(
@@ -65,6 +68,7 @@ class ProductWidget extends StatelessWidget {
                                           isAdded: added,
                                           clickedProduct: productModel));
                                   added = !added;
+                                  isLiked=!isLiked;
                                 } else {
                                   
                                   homeBloc.add(

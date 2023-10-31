@@ -30,14 +30,7 @@ class _CartPageState extends State<CartPage> {
          {}),
         builder: (context, state) {
           return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.white,
-                centerTitle: true,
-                elevation: 0,
-                title: Text('My Cart',
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold)),
-              ),
+              
               body: (state is CartLoadedSuccessState)&& cartItems.length!=0
                   ? Column(
                       children: [

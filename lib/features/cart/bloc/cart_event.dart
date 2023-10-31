@@ -8,5 +8,13 @@ part of 'cart_bloc.dart';
    final int id;
    CartProductRemoveButtonClickedEvent({required this.id,required this.clickedProduct});
  }
- class CartAddCountWidgetEvent extends CartEvent{}
- class CartMinsCountWidgetEvent extends CartEvent{}
+ class CartAddCountWidgetEvent extends CartEvent
+ {
+  int count =0;
+  CartAddCountWidgetEvent({required this.count});
+ }
+ class CartMinsCountWidgetEvent extends CartEvent
+ {
+  int count =0;
+  CartMinsCountWidgetEvent({required this.count});
+ }

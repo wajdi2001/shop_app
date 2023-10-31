@@ -3,7 +3,8 @@ import 'package:like_button/like_button.dart';
 
 class CustomLikeButton extends StatelessWidget {
   VoidCallback onPressed;
-  CustomLikeButton({super.key,required this.onPressed});
+  bool isLiked =false;
+  CustomLikeButton({super.key,required this.onPressed,required this.isLiked});
 
   @override
   Widget build(BuildContext context) {

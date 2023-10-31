@@ -15,13 +15,17 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartInitial>(cartInitialEvent);
     on<CartProductRemoveButtonClickedEvent>(cartProductRemoveButtonClickedEvent);
     on<CartAddCountWidgetEvent>(cartAddCountWidgetEvent);
-    
+    on<CartMinsCountWidgetEvent>(cartMinsCountWidgetEvent);
   }
   
     
   
   FutureOr<void> cartAddCountWidgetEvent(CartAddCountWidgetEvent event, Emitter<CartState> emit) {
     emit(CartAddCountWidgetState(count++));
+  }
+  
+  FutureOr<void> cartMinsCountWidgetEvent(CartMinsCountWidgetEvent event, Emitter<CartState> emit) {
+    emit(CartMinCountWidgetState( count--));
   }
   }
   FutureOr<void> cartInitialEvent(

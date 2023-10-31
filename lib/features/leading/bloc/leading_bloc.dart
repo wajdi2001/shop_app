@@ -7,8 +7,19 @@ part 'leading_event.dart';
 part 'leading_state.dart';
 
 class LeadingBloc extends Bloc<LeadingEvent, LeadingState> {
-  LeadingBloc() : super(LeadingInitial(index: 0)) {
+  bool open;
+  LeadingBloc({required this.open}) : super(LeadingInitial(index: 0)) {
     on<LeadingSwitchPage>(leadingSwitchPage);
+    on<LeadingOpenCategory>(leadingOpenCategory);
+  }
+  
+
+  FutureOr<void> leadingOpenCategory(LeadingOpenCategory event, Emitter<LeadingState> emit) {
+    if (event is LeadingOpenCategory) {
+      open=!open;
+      emit(LeadingOpenCategoryState(open: open,));
+      emit(LeadingInitial(index: 0));
+    }
   }
 }
 

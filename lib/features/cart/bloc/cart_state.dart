@@ -27,3 +27,8 @@ class CartAddCountWidgetState extends CartState
   final  int count;
   CartAddCountWidgetState(this.count);
 }
+class CartMinCountWidgetState extends CartState
+{
+  final  int count;
+  CartMinCountWidgetState(this.count);
+}

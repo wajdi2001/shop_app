@@ -13,10 +13,14 @@ class ClassLoadingState extends CartState {}
 
 class CartLoadedSuccessState extends CartState {
   final List<ProductModel> products;
-  CartLoadedSuccessState({
-    required this.products,
-  });
+  final Map<int, int> productQuantities;
+
+  CartLoadedSuccessState({required this.products, required this.productQuantities});
+
+  @override
+  List<Object> get props => [products, productQuantities];
 }
+
 
 class CartErrorState extends CartState {
   final String errorMessage;

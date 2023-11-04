@@ -4,23 +4,28 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:store_app/features/cart/bloc/cart_bloc.dart';
 import 'package:store_app/models/productModel.dart';
 
+
+
 class CartWidget extends StatefulWidget {
+  final CartBloc cartBloc;
+  
   final ProductModel productModel ;
 
-  CartWidget({super.key, required CartBloc cartBloc, required this.productModel, });
+  CartWidget({super.key, required this.productModel, required this.cartBloc});
 
   @override
   State<CartWidget> createState() => _CartWidgetState();
 }
 
 class _CartWidgetState extends State<CartWidget> {
-  int count = 1;
   
-  final CartBloc cartBloc= CartBloc();
+  int count = 1;
+
   @override
   Widget build(BuildContext context) {
+    int productQuantity = widget.cartBloc.productQuantities[widget.productModel.id] ?? 0;
     return BlocConsumer(
-      bloc: cartBloc,
+      bloc: widget.cartBloc,
       listener: (context, state) {
         // TODO: implement listener
       },
@@ -82,9 +87,9 @@ class _CartWidgetState extends State<CartWidget> {
                         ),
                         child: IconButton(
                             onPressed: () {
-                              setState(() {
-                                cartBloc.count > 0 ? cartBloc.add(CartMinsCountWidgetEvent(count: cartBloc.count)) : print("count 0");
-                              });
+                              
+                                widget.cartBloc.count > 0 ? widget.cartBloc.add(CartMinsCountWidgetEvent(count: productQuantity,clickedProduct: widget.productModel)) : print("count 0");
+                             
                             },
                             icon: FaIcon(
                               FontAwesomeIcons.minus,
@@ -95,7 +100,7 @@ class _CartWidgetState extends State<CartWidget> {
                         width: 10,
                       ),
                       Text(
-                        '${cartBloc.count}',
+                        '${productQuantity}',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -112,7 +117,7 @@ class _CartWidgetState extends State<CartWidget> {
                         ),
                         child: IconButton(
                             onPressed: () {
-                              cartBloc.add(CartAddCountWidgetEvent(count: cartBloc.count));
+                              widget.cartBloc.add(CartAddCountWidgetEvent(count: productQuantity,clickedProduct: widget.productModel));
                             },
                             icon: FaIcon(
                               FontAwesomeIcons.plus,
@@ -136,7 +141,7 @@ class _CartWidgetState extends State<CartWidget> {
                 height: 40,
                 child: IconButton(
                     onPressed: () {
-                      cartBloc.add(CartProductRemoveButtonClickedEvent(
+                      widget.cartBloc.add(CartProductRemoveButtonClickedEvent(
                           id: widget.productModel.id,
                           clickedProduct: widget.productModel));
                     },

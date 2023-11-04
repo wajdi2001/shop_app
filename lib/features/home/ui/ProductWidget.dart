@@ -113,16 +113,16 @@ class ProductWidget extends StatelessWidget {
                                     children: [
                                       IconButton(
                                           onPressed: () {
-                                            if (added == false) {
+                                            if (homeBloc.added == false) {
                                               
                                               homeBloc.add(
                                                   HomeProductCartButtonClickedEvent(
                                                       id: productModel.id,
-                                                      cart: Colors.black,
-                                                      isAdded: added,
+                                                      cart: homeBloc.cart,
+                                                      isAdded: homeBloc.added,
                                                       clickedProduct:
                                                           productModel));
-                                              added = true;
+                                              
                                               
                                               print(cartItems.length);
                                             } else {
@@ -131,11 +131,11 @@ class ProductWidget extends StatelessWidget {
                                               homeBloc.add(
                                                   HomeProductCartButtonClickedEvent(
                                                       id: productModel.id,
-                                                      cart: Colors.grey,
-                                                      isAdded: added,
+                                                      cart: homeBloc.cart,
+                                                      isAdded: homeBloc.added,
                                                       clickedProduct:
                                                           productModel));
-                                              added = false;
+                                              
                                               print(cartItems.length);
                                               
                                               
@@ -144,7 +144,9 @@ class ProductWidget extends StatelessWidget {
                                           icon: FaIcon(
                                             textDirection: TextDirection.rtl,
                                             FontAwesomeIcons.shoppingCart,
-                                            color: added ==!added?Colors.grey:Colors.black,
+                                            color: added == false
+                                                ? Colors.grey
+                                                : Colors.green,
                                             size: 20,
                                           )),
                                     ],

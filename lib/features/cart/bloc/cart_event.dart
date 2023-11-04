@@ -10,11 +10,13 @@ part of 'cart_bloc.dart';
  }
  class CartAddCountWidgetEvent extends CartEvent
  {
+  final ProductModel clickedProduct;
   int count =0;
-  CartAddCountWidgetEvent({required this.count});
+  CartAddCountWidgetEvent({required this.clickedProduct,required this.count});
  }
  class CartMinsCountWidgetEvent extends CartEvent
  {
+  final ProductModel clickedProduct;
   int count =0;
-  CartMinsCountWidgetEvent({required this.count});
+  CartMinsCountWidgetEvent({required this.clickedProduct,required this.count});
  }

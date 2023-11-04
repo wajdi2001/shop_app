@@ -14,6 +14,8 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  Color cart=Colors.grey;
+  bool added = false;
   HomeBloc() : super(HomeInitial()) {
     on<HomeInitialEvent>(homeInitialEvent);
     on<HomeProductWishlistButtonClickedEvent>(
@@ -58,13 +60,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (i >= cartItems.length) {
       cartItems.add(event.clickedProduct);
       print('item added with id :${event.clickedProduct.id}');
-      event.cart=Colors.black;
+      cart=Colors.black;
+      added =true;
     } else {
       print('item exist with id :${event.clickedProduct.id}');
       cartItems.removeAt(i);
       print('item removed ');
-      event.cart=Colors.white;
+      cart=Colors.white;
+      added =false;
     }
+    
   }
 
   FutureOr<void> homeNavigateFavoriteEvent(

@@ -149,31 +149,35 @@ class LeadingPage extends StatelessWidget {
                   ItemDrawerList(
                       id: 1,
                       title: 'Informatique',
-                      icon: Icons.category_rounded,
+                      icon: Icons.computer,
                       isSelected:
                           currentPage == DrawerSection.Category ? true : false,
-                      chevron: false),
+                      chevron: false,
+                      child: true,),
                   ItemDrawerList(
                       id: 1,
                       title: 'Accessories',
-                      icon: Icons.category_rounded,
+                      icon: Icons.headphones,
                       isSelected:
                           currentPage == DrawerSection.Category ? true : false,
-                      chevron: false),
+                      chevron: false,
+                      child: true,),
                   ItemDrawerList(
                       id: 1,
                       title: 'Men',
-                      icon: Icons.category_rounded,
+                      icon: Icons.man,
                       isSelected:
                           currentPage == DrawerSection.Category ? true : false,
-                      chevron: false),
+                      chevron: false,
+                      child: true,),
                   ItemDrawerList(
                       id: 1,
                       title: 'Beauty',
-                      icon: Icons.category_rounded,
+                      icon: Icons.beach_access,
                       isSelected:
                           currentPage == DrawerSection.Category ? true : false,
-                      chevron: false),
+                      chevron: false,
+                      child: true,),
                 ],
               )
             : const SizedBox(),
@@ -205,6 +209,7 @@ class LeadingPage extends StatelessWidget {
       required IconData icon,
       required bool isSelected,
       required bool chevron,
+       bool? child,
       VoidCallback? onTap}) {
     return Material(
       child: InkWell(
@@ -219,7 +224,7 @@ class LeadingPage extends StatelessWidget {
                 size: 22,
               )),
               Expanded(
-                flex: 2,
+                flex: child ==true ? 2 : 3,
                 child: Text(
                   title,
                   style: const TextStyle(
@@ -227,7 +232,7 @@ class LeadingPage extends StatelessWidget {
                 ),
               ),
               chevron == true
-                  ? const Expanded(child: Icon(Icons.arrow_drop_down_rounded))
+                  ? const Expanded(flex: 1,child: Icon(Icons.arrow_drop_down_rounded),)
                   : const SizedBox(),
             ],
           ),

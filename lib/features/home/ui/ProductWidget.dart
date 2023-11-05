@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:store_app/Customs/custom_like_widget.dart';
+import 'package:like_button/like_button.dart';
 import 'package:store_app/features/home/bloc/home_bloc.dart';
 import 'package:store_app/helper/data/itiems.dart';
 import 'package:store_app/models/productModel.dart';
 
 
 // ignore: must_be_immutable
-class ProductWidget extends StatelessWidget {
+class ProductWidget extends StatefulWidget {
   final ProductModel productModel;
   final HomeBloc homeBloc;
   VoidCallback onTap;
-  bool added = false;
-  bool isLiked =false;
-  Color favorite = Colors.grey;
-  Color cart = Colors.grey;
-  //added to cart or not
+
   ProductWidget({
     super.key,
     required this.productModel,
@@ -24,22 +20,51 @@ class ProductWidget extends StatelessWidget {
   });
 
   @override
+  State<ProductWidget> createState() => _ProductWidgetState();
+}
+
+class _ProductWidgetState extends State<ProductWidget> {
+  bool added = false;
+  bool addedfav =false;
+
+  bool isLiked =false;
+
+  Color favorite = Colors.grey;
+
+  Color cart = Colors.grey;
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Center(
         child: Stack(
           clipBehavior: Clip.none,
           children: [
             Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 40,
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 5)
-                  ]),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 5,
+                    blurRadius: 10, // Adjust the blur radius for the base shadow
+                    offset: Offset(0, 0), // Offset for the base shadow
+                  ),
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 5,
+                    blurRadius: 20, // Adjust the blur radius for the second shadow
+                    offset: Offset(0, 10), // Offset for the second shadow (vertical)
+                  ),
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 5,
+                    blurRadius: 20, // Adjust the blur radius for the third shadow
+                    offset: Offset(10, 0), // Offset for the third shadow (horizontal)
+                  ),
+                ],
+              ),
               margin: EdgeInsets.only(left: 5),
               child: Card(
                 shadowColor: Colors.black,
@@ -53,36 +78,49 @@ class ProductWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        
+
                        Padding(
                          padding: const EdgeInsets.only( left: 100.0),
-                         child: CustomLikeButton(
-                          isLiked: isLiked,
-                          onPressed: () {
-                                if (added == false) {
-                                  
-                                  homeBloc.add(
-                                      HomeProductWishlistButtonClickedEvent(
-                                          id: productModel.id,
-                                          
-                                          isAdded: added,
-                                          clickedProduct: productModel));
-                                  added = !added;
-                                  isLiked=!isLiked;
-                                } else {
-                                  
-                                  homeBloc.add(
-                                      HomeProductWishlistButtonClickedEvent(
-                                          id: productModel.id,
-                                          
-                                          isAdded: added,
-                                          clickedProduct: productModel));
-                                  added = !added;
-                                  
-                                }
-                                ;
-                              },),
-                       ),
+                         child: IconButton(
+                             onPressed: () {
+                               if (addedfav== false) {
+
+                                 widget.homeBloc.add(
+                                     HomeProductWishlistButtonClickedEvent(
+                                         id: widget.productModel.id,
+                                         isAdded: addedfav,
+                                         clickedProduct:
+                                         widget.productModel));
+
+                                 setState(() {
+                                   addedfav=addedfav! ;
+                                 });
+                                 print(cartItems.length);
+                               } else {
+
+
+                                 widget.homeBloc.add(
+                                     HomeProductWishlistButtonClickedEvent(
+                                         id: widget.productModel.id,
+                                         isAdded: addedfav,
+                                         clickedProduct:
+                                         widget.productModel));
+
+                                 print(cartItems.length);
+                                 setState(() {
+                                   addedfav=addedfav;
+                                 });
+
+                               }
+                             },
+                             icon: FaIcon(
+                               textDirection: TextDirection.rtl,
+                               FontAwesomeIcons.solidHeart,
+                               color: addedfav == false
+                                   ? Colors.grey
+                                   : Colors.red,
+                               size: 20,
+                             ))),
                         Spacer(),
                         Column(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -90,7 +128,7 @@ class ProductWidget extends StatelessWidget {
                             children: [
                               Text(
                                 maxLines: 1,
-                                productModel.title,
+                                widget.productModel.title,
                                 style: TextStyle(
                                     color: Colors.grey,
                                     fontWeight: FontWeight.normal,
@@ -101,7 +139,7 @@ class ProductWidget extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '\$${productModel.price}',
+                                    '\$${widget.productModel.price}',
                                     style: TextStyle(
                                         color: Colors.green,
                                         fontWeight: FontWeight.bold,
@@ -113,32 +151,36 @@ class ProductWidget extends StatelessWidget {
                                     children: [
                                       IconButton(
                                           onPressed: () {
-                                            if (homeBloc.added == false) {
-                                              
-                                              homeBloc.add(
+                                            if (widget.homeBloc.added == false) {
+
+                                              widget.homeBloc.add(
                                                   HomeProductCartButtonClickedEvent(
-                                                      id: productModel.id,
-                                                      cart: homeBloc.cart,
-                                                      isAdded: homeBloc.added,
+                                                      id: widget.productModel.id,
+                                                      cart: widget.homeBloc.cart,
+                                                      isAdded: widget.homeBloc.added,
                                                       clickedProduct:
-                                                          productModel));
-                                              
-                                              
+                                                          widget.productModel));
+
+                                                setState(() {
+                                                  added=widget.homeBloc.added ;
+                                                });
                                               print(cartItems.length);
                                             } else {
-                                              
 
-                                              homeBloc.add(
+
+                                              widget.homeBloc.add(
                                                   HomeProductCartButtonClickedEvent(
-                                                      id: productModel.id,
-                                                      cart: homeBloc.cart,
-                                                      isAdded: homeBloc.added,
+                                                      id: widget.productModel.id,
+                                                      cart: widget.homeBloc.cart,
+                                                      isAdded: widget.homeBloc.added,
                                                       clickedProduct:
-                                                          productModel));
-                                              
+                                                          widget.productModel));
+
                                               print(cartItems.length);
-                                              
-                                              
+                                              setState(() {
+                                                added=widget.homeBloc.added;
+                                              });
+
                                             }
                                           },
                                           icon: FaIcon(
@@ -162,7 +204,7 @@ class ProductWidget extends StatelessWidget {
             ),
             Positioned(
               child: Image(
-                image: NetworkImage(productModel.image),
+                image: NetworkImage(widget.productModel.image),
                 height: 70,
                 width: 80,
               ),

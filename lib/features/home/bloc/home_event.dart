@@ -14,7 +14,6 @@ class HomeProductWishlistButtonClickedEvent extends HomeEvent {
   HomeProductWishlistButtonClickedEvent({
     required this.clickedProduct,
     required this.isAdded,
-   
     required this.id,
   });
 }

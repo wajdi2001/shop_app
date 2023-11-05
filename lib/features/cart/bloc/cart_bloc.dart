@@ -9,8 +9,8 @@ part 'cart_event.dart';
 part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  int count =5;
- 
+
+  Map<int, int> productQuantities = {};
   CartBloc() : super(CartInitialstate()) {
     on<CartInitial>(cartInitialEvent);
     on<CartProductRemoveButtonClickedEvent>(cartProductRemoveButtonClickedEvent);
@@ -18,15 +18,19 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartMinsCountWidgetEvent>(cartMinsCountWidgetEvent);
   }
   
-    Map<int, int> productQuantities = {}; // Utilisez un Map pour associer les ID de produit à leurs quantités
+     // Utilisez un Map pour associer les ID de produit à leurs quantités
 
   @override
   Stream<CartState> mapEventToState(CartEvent event) async* {
     if (event is CartAddCountWidgetEvent) {
-      productQuantities[event.clickedProduct.id]=productQuantities[event.clickedProduct.id]!+1; // Incrémentez la quantité du produit
+      final currentCount = productQuantities[event.clickedProduct.id] ?? 0;
+      productQuantities[event.clickedProduct.id] = currentCount + event.count;
+      yield CartAddCountWidgetState(productQuantities[event.clickedProduct.id]!);// Incrémentez la quantité du produit
     } else if (event is CartMinsCountWidgetEvent) {
-      if (productQuantities[event.clickedProduct.id]! > 0) {
-        productQuantities[event.clickedProduct.id]=productQuantities[event.clickedProduct.id]!-1; // Décrémentez la quantité du produit
+      final currentCount = productQuantities[event.clickedProduct.id] ?? 0;
+      if(currentCount > 0){
+        productQuantities[event.clickedProduct.id] = currentCount - event.count;
+        yield CartMinCountWidgetState(productQuantities[event.clickedProduct.id]!);// Décrémentez la quantité du produit
       }
     }
     // ...

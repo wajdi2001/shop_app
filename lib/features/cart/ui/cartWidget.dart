@@ -87,8 +87,8 @@ class _CartWidgetState extends State<CartWidget> {
                         ),
                         child: IconButton(
                             onPressed: () {
-                              
-                                widget.cartBloc.count > 0 ? widget.cartBloc.add(CartMinsCountWidgetEvent(count: productQuantity,clickedProduct: widget.productModel)) : print("count 0");
+
+                              productQuantity > 0 ? widget.cartBloc.add(CartMinsCountWidgetEvent(count: productQuantity,clickedProduct: widget.productModel)) : print("count 0");
                              
                             },
                             icon: FaIcon(

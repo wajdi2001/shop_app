@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:store_app/helper/color.dart';
 
 class MyHeaderDrawer extends StatelessWidget {
   const MyHeaderDrawer({super.key});
@@ -7,12 +6,12 @@ class MyHeaderDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.white,
           border: Border(bottom: BorderSide(color: Colors.grey))),
       width: double.infinity,
       height: 200,
-      padding: EdgeInsets.only(top: 20.0),
+      padding:const  EdgeInsets.only(top: 20.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -24,12 +23,12 @@ class MyHeaderDrawer extends StatelessWidget {
               image: DecorationImage(image: AssetImage('assets/profile.jpg')),
             ),
           ),
-          Text(
+         const  Text(
             'Wajdi Ben Moumen',
             style: TextStyle(
                 color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
           ),
-          Text(
+         const  Text(
             'Email :Wajdibbm@gmail.com',
             style: TextStyle(
               height: 2,

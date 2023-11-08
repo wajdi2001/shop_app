@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:store_app/features/cart/ui/cart.dart';
-import 'package:store_app/features/drawer/ui/myHeaderDrawer.dart';
 import 'package:store_app/features/favorite/favorite.dart';
 import 'package:store_app/features/home/bloc/home_bloc.dart';
 import 'package:store_app/features/home/ui/ProductWidget.dart';
@@ -43,7 +41,13 @@ class _HomePageState extends State<HomePage> {
             // Affichez les autres propriétés du produit ici
           }
         } else if (state is HomeProductCartButtonClickedEvent) {
-          SnackBar(content: Text("Item added in Cart"));
+          
+    ScaffoldMessenger.of(context).showSnackBar( const SnackBar(
+      content: Text('Item added to cart'),
+      duration: Duration(seconds: 2),
+    ));
+       
+
         }
       },
       builder: (context, state) {
@@ -86,11 +90,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                           itemCount: state.products.length,
                           itemBuilder: (context, index) => ProductWidget(
+                            
                             onTap: () {
                               print(state.products[index].id);
                             },
                             homeBloc: homeBloc,
                             productModel: ProductModel(
+                            
                                 category: state.products[index].category,
                                 description: state.products[index].description,
                                 id: state.products[index].id,

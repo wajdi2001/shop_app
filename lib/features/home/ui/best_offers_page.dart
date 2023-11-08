@@ -20,7 +20,7 @@ class _BestOffersState extends State<BestOffers> {
     );
 
     // Configure un Timer pour changer automatiquement de page toutes les 3 secondes
-    timer = Timer.periodic(Duration(seconds: 3), (timer) {
+    timer = Timer.periodic (Duration(seconds: 3), (timer) {
       if (pageNumb < 4) {
         pageNumb++;
         pageController.animateToPage(
@@ -51,6 +51,7 @@ class _BestOffersState extends State<BestOffers> {
         children: [
           SizedBox(
             height: 200,
+            width: double.infinity,
             child: PageView.builder(
               controller: pageController,
               onPageChanged: (index) {
@@ -60,20 +61,20 @@ class _BestOffersState extends State<BestOffers> {
               itemBuilder: ((context, index) => Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: NetworkImage(
                       'https://media.istockphoto.com/id/1257563298/photo/fashion-clothes-on-a-rack-in-a-light-background-indoors-place-for-text.jpg?s=612x612&w=0&k=20&c=UTL3KlMvLkteLe_9l3QbMklBcyaKQM5j6mcDxxtTr4Y=',
                     ),
                   ),
                 ),
                 height: 200,
-                margin: EdgeInsets.only(top: 8, left: 10, bottom: 5),
+                margin:const  EdgeInsets.only(top: 8, left: 18, bottom: 5),
                 width: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 70),
+                      margin:const  EdgeInsets.only(top: 70),
                       height: 100,
                       width: 150,
                       child: const Text(
@@ -96,7 +97,7 @@ class _BestOffersState extends State<BestOffers> {
             children: List.generate(
               5,
                   (index) => Container(
-                margin: EdgeInsets.all(3),
+                margin:const  EdgeInsets.all(3),
                 height: 6,
                 width: pageNumb == index ? 15 : 5,
                 decoration: BoxDecoration(

@@ -8,12 +8,14 @@ part of 'cart_bloc.dart';
    final int id;
    CartProductRemoveButtonClickedEvent({required this.id,required this.clickedProduct});
  }
+ // ignore: must_be_immutable
  class CartAddCountWidgetEvent extends CartEvent
  {
   final ProductModel clickedProduct;
   int count =0;
   CartAddCountWidgetEvent({required this.clickedProduct,required this.count});
  }
+ // ignore: must_be_immutable
  class CartMinsCountWidgetEvent extends CartEvent
  {
   final ProductModel clickedProduct;

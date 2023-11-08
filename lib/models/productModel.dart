@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 class ProductModel {
+  
   int id;
   String title;
   double price;
@@ -11,7 +12,9 @@ class ProductModel {
   Rating rating;
 
   ProductModel(
-      {required this.id,
+      {
+      
+      required this.id,
       required this.title,
       required this.price,
       required this.description,
@@ -33,6 +36,7 @@ class ProductModel {
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
+     
       id: map['id'] as int,
       title: map['title'] as String,
       price: map['price'].runtimeType == int

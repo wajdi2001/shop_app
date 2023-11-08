@@ -24,5 +24,3 @@ class HomeNavigateToCartPageActionState extends HomeActionState{}
 class HomeNavigateToFavoritePageActionState extends HomeActionState{}
 class HomeNavigateToSearchPageActionState extends HomeActionState{}
 class HomeNavigateToProfilePageActionState extends HomeActionState{}
-
-

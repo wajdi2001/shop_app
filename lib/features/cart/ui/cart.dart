@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:store_app/features/cart/bloc/cart_bloc.dart';
 import 'package:store_app/features/cart/ui/cartWidget.dart';
-import 'package:store_app/features/home/bloc/home_bloc.dart';
 import 'package:store_app/helper/data/itiems.dart';
 import 'package:store_app/models/productModel.dart';
 
@@ -15,6 +13,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  @override
   void initState() {
     cartBloc.add(CartInitial());
     super.initState();
@@ -31,14 +30,14 @@ class _CartPageState extends State<CartPage> {
         builder: (context, state) {
           return Scaffold(
               
-              body: (state is CartLoadedSuccessState)&& cartItems.length!=0
+              body: (state is CartLoadedSuccessState)&& cartItems.isNotEmpty
                   ? Column(
                       children: [
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ListView.separated(
-                                separatorBuilder: (context, index) => Divider(
+                                separatorBuilder: (context, index) => const Divider(
                                       color: Colors.grey,
                                     ),
                                 itemBuilder: (context, index) {
@@ -47,6 +46,7 @@ class _CartPageState extends State<CartPage> {
                                     
                                     
                                     productModel: ProductModel(
+                                      
                                         category:
                                             state.products[index].category,
                                         description:
@@ -64,7 +64,7 @@ class _CartPageState extends State<CartPage> {
                         ),
                         Container(
 
-                          margin: EdgeInsets.only(bottom: 20),
+                          margin:const  EdgeInsets.only(bottom: 20),
                           decoration: BoxDecoration(
 
                               
@@ -78,7 +78,7 @@ class _CartPageState extends State<CartPage> {
                           child: GestureDetector(
                             
 
-                            child: Text(
+                            child:const  Text(
                               "CheckOut",
                               style: TextStyle(
                                   fontSize: 25, fontWeight: FontWeight.bold,color: Colors.white),
@@ -89,7 +89,7 @@ class _CartPageState extends State<CartPage> {
                     )
                   : Container(
                     alignment: Alignment.center,
-                    child: Text("Your Cart is Empty",style: TextStyle(color: Colors.grey,fontSize: 25,fontWeight: FontWeight.bold),),
+                    child: const Text("Your Cart is Empty",style: TextStyle(color: Colors.grey,fontSize: 25,fontWeight: FontWeight.bold),),
                   ));
         });
   }

@@ -20,21 +20,20 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   
      // Utilisez un Map pour associer les ID de produit à leurs quantités
 
-  @override
-  Stream<CartState> mapEventToState(CartEvent event) async* {
-    if (event is CartAddCountWidgetEvent) {
-      final currentCount = productQuantities[event.clickedProduct.id] ?? 0;
-      productQuantities[event.clickedProduct.id] = currentCount + event.count;
-      yield CartAddCountWidgetState(productQuantities[event.clickedProduct.id]!);// Incrémentez la quantité du produit
-    } else if (event is CartMinsCountWidgetEvent) {
-      final currentCount = productQuantities[event.clickedProduct.id] ?? 0;
-      if(currentCount > 0){
-        productQuantities[event.clickedProduct.id] = currentCount - event.count;
-        yield CartMinCountWidgetState(productQuantities[event.clickedProduct.id]!);// Décrémentez la quantité du produit
+      Stream<CartState> mapEventToState(CartEvent event) async* {
+        if (event is CartAddCountWidgetEvent) {
+          final currentCount = productQuantities[event.clickedProduct.id] ?? 0;
+          productQuantities[event.clickedProduct.id] = currentCount + event.count;
+          yield CartAddCountWidgetState(productQuantities[event.clickedProduct.id]!);// Incrémentez la quantité du produit
+        } else if (event is CartMinsCountWidgetEvent) {
+          final currentCount = productQuantities[event.clickedProduct.id] ?? 0;
+          if(currentCount > 0){
+            productQuantities[event.clickedProduct.id] = currentCount - event.count;
+            yield CartMinCountWidgetState(productQuantities[event.clickedProduct.id]!);// Décrémentez la quantité du produit
+          }
+        }
+        // ...
       }
-    }
-    // ...
-  }
   
   FutureOr<void> cartAddCountWidgetEvent(CartAddCountWidgetEvent event, Emitter<CartState> emit) {
   productQuantities[event.clickedProduct.id] = (productQuantities[event.clickedProduct.id] ?? 0) + 1; // Increment the quantity of the product

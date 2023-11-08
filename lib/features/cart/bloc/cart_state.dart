@@ -17,7 +17,6 @@ class CartLoadedSuccessState extends CartState {
 
   CartLoadedSuccessState({required this.products, required this.productQuantities});
 
-  @override
   List<Object> get props => [products, productQuantities];
 }
 
